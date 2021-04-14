@@ -6,15 +6,19 @@ from config import CFG
 
 ckpt_path = "/home/ergouu/data/tested_models/mobilenetv3l+espcn+tf1+cellsize4/-11172"
 
+
 def main():
+    # frozen the graph from checkpoint format
     tf.reset_default_graph()
     x = tf.placeholder(tf.float32, shape=[None, 256, 512, 3], name='input')
     flow = ultranet(x, CFG.BACK_BONE, CFG.CELL_SIZE, is_train=False)
     flow = tf.identity(flow,name='final_out_put')
 
     with tf.Session() as sess:
-
+        # create meta graph first
         tf.train.write_graph(sess.graph_def, './pb_model', 'model.pb')
+        
+        # freeze graph
         freeze_graph.freeze_graph(
             input_graph='./pb_model/model.pb',
             input_saver='',
@@ -24,7 +28,7 @@ def main():
             restore_op_name='save/restore_all',
             filename_tensor_name='save/Const:0',
             output_graph='./pb_model/frozen_model.pb',
-            clear_devices=False,
+            clear_devices=True,
             initializer_nodes=''
             )
 
