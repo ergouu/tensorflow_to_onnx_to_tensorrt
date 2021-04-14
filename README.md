@@ -9,7 +9,7 @@ device: 用于部署推理
 
 `pip install tensorflow-gpu==1.15.5 nvidia-pyindex tf2onnx pycuda`
 
-## 将frozen_graph转成onnx -- convert frozen_graph to onxx
+## 将frozen_graph转成onnx -- convert frozen_graph to onnx
 使用tf2onnx进行转换，命令如下
 
 `python/python3 -m tf2onnx.convert --graphdef FROZEN_GRAPH_PATH --output OUTPUT_ONNX_MODEL_FILE_PATH --inputs THE_NAME_OF_INPUT_TENSOR_NAME --outputs THE_NAME_OF_OUTPUT_TNEOSR_NAME`
