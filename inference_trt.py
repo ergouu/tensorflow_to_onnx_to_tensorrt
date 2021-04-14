@@ -28,7 +28,11 @@ def load_image_to_buffer(pics,pagelocked_buffer):
     np.copyto(pagelocked_buffer,preprocessed)
 
 def do_inference(engine,pics_1,h_input_1,h_output_1,d_input_1,d_output_1,stream,batch_size,height,weight):
+    
+    # trainsfer input data to input memory zone first
     load_image_to_buffer(pics_1,h_input_1)
+    
+    # create context to execute engine plan
     with engine.create_execution_context() as context:
         # one engine could be executed in several different context
         
